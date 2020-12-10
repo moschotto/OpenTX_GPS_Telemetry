@@ -5,17 +5,17 @@ License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html
 GITHUB: https://github.com/moschotto?tab=repositories 
 
 
-## Taranis with 212x64 pixel displays (x9d/x9+/x9E)
+### Taranis with 212x64 pixel displays (x9d/x9+/x9E)
 - GPSx9L.lua
 - GPSviewerX9L.lua
 
-## Taranis with 128x64 pixel displays (x7 / x9 lite)
+### Taranis with 128x64 pixel displays (x7 / x9 lite)
 - GPSx9.lua
 - GPSviewerX9L.lua
 
 
  
-## Description:
+### Description:
 How to find your model in case of a crash, power loss etc? Right, check the last 
 GPS coordinates and type it into to your mobile phone...
 
@@ -31,16 +31,26 @@ GPS coordinates and type it into to your mobile phone...
 - Reset telemetry data and total distance via "long press enter"
 
 
-## Install:
+### Install:
 copy GPSxxx.lua to /SCRIPTS/TELEMETRY
-copy GPSviewerxxx.lua
+
+copy GPSviewerxxx.lua to /SCRIPTS/TOOLS
+
 copy the ICON folder to /SCRIPTS/TELEMETRY/BMP
+
 Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
 
 ################################################################################
 
+
+
+### x7 / x9 lite Screens:
+
 ![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/x9L_GPS_screen.PNG)
 ![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/x9L_GPSviewer.PNG)
+
+### x9d/x9+/x9E Screens:
+
 ![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/x9_GPS_screen.PNG)
 ![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/x9_GPSviewer.PNG)
 

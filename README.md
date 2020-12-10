@@ -1,21 +1,21 @@
-#"Taranis TELEMETRY screen - GPS last known postions v2.0"  
+# Taranis TELEMETRY screen - GPS last known postions v2.0
 
 Copyright (C) by mosch   
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories 
 
 
-##Taranis with 212x64 pixel displays (x9d/x9+/x9E)
+## Taranis with 212x64 pixel displays (x9d/x9+/x9E)
 - GPSx9L.lua
 - GPSviewerX9L.lua
 
-##Taranis with 128x64 pixel displays (x7 / x9 lite)
+## Taranis with 128x64 pixel displays (x7 / x9 lite)
 - GPSx9.lua
 - GPSviewerX9L.lua
 
 
  
-Description:
+## Description:
 How to find your model in case of a crash, power loss etc? Right, check the last 
 GPS coordinates and type it into to your mobile phone...
 
@@ -31,7 +31,7 @@ GPS coordinates and type it into to your mobile phone...
 - Reset telemetry data and total distance via "long press enter"
 
 
-Install:
+## Install:
 copy GPSxxx.lua to /SCRIPTS/TELEMETRY
 copy GPSviewerxxx.lua
 copy the ICON folder to /SCRIPTS/TELEMETRY/BMP

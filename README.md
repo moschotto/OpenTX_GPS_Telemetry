@@ -40,7 +40,9 @@ Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
 ################################################################################
 
 
-![Alt text](https://github.com/moschotto/Taranis_X7/blob/master/screenx7.png)
+![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/master/screenx7.png)
+
+
 
 
 

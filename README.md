@@ -38,3 +38,10 @@ copy the ICON folder to /SCRIPTS/TELEMETRY/BMP
 Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
 
 ################################################################################
+
+
+![Alt text](https://github.com/moschotto/Taranis_X7/blob/master/screenx7.png)
+
+
+
+

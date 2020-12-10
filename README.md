@@ -22,7 +22,7 @@ GPS coordinates and type it into to your mobile phone...
 - Shows and logs GPS related information. log file will be generated in
 /LOGS/GPSpositions.txt
 
-- GPS logfile can be viewed with the GPSviewer.lua" (check github) on the radio
+- GPS logfile can be viewed with the GPSviewer.lua" on the radio itself
 
 - in case that the telemetry stops, the last coordinates will remain on the screen
 

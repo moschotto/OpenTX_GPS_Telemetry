@@ -1,15 +1,15 @@
-"Taranis TELEMETRY screen - GPS last known postions v2.0"  
+#"Taranis TELEMETRY screen - GPS last known postions v2.0"  
 
 Copyright (C) by mosch   
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories 
 
 
-Taranis with 212x64 pixel displays (x9d/x9+/x9E)
+##Taranis with 212x64 pixel displays (x9d/x9+/x9E)
 - GPSx9L.lua
 - GPSviewerX9L.lua
 
-Taranis with 128x64 pixel displays (x7 / x9 lite)
+##Taranis with 128x64 pixel displays (x7 / x9 lite)
 - GPSx9.lua
 - GPSviewerX9L.lua
 

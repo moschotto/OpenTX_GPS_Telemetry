@@ -13,6 +13,7 @@ Taranis with 128x64 pixel displays (x7 / x9 lite)
 - GPSx9.lua
 - GPSviewerX9L.lua
 
+
  
 Description:
 How to find your model in case of a crash, power loss etc? Right, check the last 
@@ -29,9 +30,11 @@ GPS coordinates and type it into to your mobile phone...
 
 - Reset telemetry data and total distance via "long press enter"
 
+
 Install:
-copy GPS.lua to /SCRIPTS/TELEMETRY
+copy GPSxxx.lua to /SCRIPTS/TELEMETRY
+copy GPSviewerxxx.lua
 copy the ICON folder to /SCRIPTS/TELEMETRY/BMP
-Setup a "screen (DIsplay 13/13)" and select GPS.lua
+Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
 
 ################################################################################

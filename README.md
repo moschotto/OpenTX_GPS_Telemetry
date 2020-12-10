@@ -46,13 +46,13 @@ Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
 
 ### x7 / x9 lite Screens:
 
-![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/x9L_GPS_screen.PNG)
-![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/x9L_GPSviewer.PNG)
+![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/x9L_GPS_screen.PNG)
+![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/x9L_GPSviewer.PNG)
 
 ### x9d/x9+/x9E Screens:
 
-![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/x9_GPS_screen.PNG)
-![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/x9_GPSviewer.PNG)
+![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/x9_GPS_screen.PNG)
+![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/x9_GPSviewer.PNG)
 
 
 

@@ -4,8 +4,7 @@ GITHUB: https://github.com/moschotto?tab=repositories
 
 "TELEMETRY screen - GPS last known postions v2.0"  
 
---[[#############################################################################
-GPS Telemetry Screen 
+GPS Telemetry Screen v2.0
 
 Taranis with 212x64 pixel displays (x9d/x9+/x9E)
 - GPSx9L.lua
@@ -36,4 +35,4 @@ copy GPS.lua to /SCRIPTS/TELEMETRY
 copy the ICON folder to /SCRIPTS/TELEMETRY/BMP
 Setup a "screen (DIsplay 13/13)" and select GPS.lua
 
-################################################################################]]
+################################################################################

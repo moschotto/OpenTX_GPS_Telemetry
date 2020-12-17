@@ -58,5 +58,6 @@ Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
 
 ### Demo
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/9Jt2rRiSq0U/0.jpg)](http://www.youtube.com/watch?v=9Jt2rRiSq0U)
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=9Jt2rRiSq0U" target="_blank"><img src="http://img.youtube.com/vi/9Jt2rRiSq0U/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 

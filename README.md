@@ -56,7 +56,9 @@ Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
 
 
 
+### Demo
 
+https://www.youtube.com/watch?v=9Jt2rRiSq0U
 
 
 

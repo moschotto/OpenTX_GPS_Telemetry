@@ -1,4 +1,4 @@
-# Taranis TELEMETRY screen - GPS last known postions v2.0
+# OpenTX GPS LUA TELEMETRY screens - GPS last known postions v2.0
 
 Copyright (C) by mosch   
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       

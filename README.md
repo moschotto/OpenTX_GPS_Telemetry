@@ -36,19 +36,20 @@ GPS coordinates and type it into to your mobile phone...
 
 
 ### Install Taranis models:
-copy GPSxxx.lua to /SCRIPTS/TELEMETRY
+- copy GPSxxx.lua to /SCRIPTS/TELEMETRY
 
-copy GPSviewerxxx.lua to /SCRIPTS/TOOLS
+- copy GPSviewerxxx.lua to /SCRIPTS/TOOLS
 
-copy the ICON folder to /SCRIPTS/TELEMETRY/BMP
+- copy the ICON folder to /SCRIPTS/TELEMETRY/BMP
 
-Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
+- Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
 
 ### Install Jumper/HOROUS models:
 
-copy the GPS folder (inculding subfolders) to /WIDGETS/GPS
+- copy the GPS folder (inculding subfolders) to /WIDGETS/GPS
+- copy GPSviewerT16.lua to /SCRIPTS/TOOLS
 
-Setup 1/2 widget screen and select "GPS"
+- Setup "1/2" widget screen and select "GPS"
 
 ################################################################################
 

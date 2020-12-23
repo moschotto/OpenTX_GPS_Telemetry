@@ -51,7 +51,8 @@ GPS coordinates and type it into to your mobile phone...
 
 - Setup "1/2" widget screen and select "GPS"
 
-################################################################################
+
+##################################################
 
 
 

@@ -4,6 +4,8 @@ Copyright (C) by mosch
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories 
 
+## make sure that your radio is a least on OpenTX version 2.3!
+
 ### Radios with 480x272 pixel displays (e.g. Jumper T16)
 - /T16/GPS
 - /T16/GPSviewerT16.lua

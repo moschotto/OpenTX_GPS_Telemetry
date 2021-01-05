@@ -78,3 +78,6 @@ GPS coordinates and type it into to your mobile phone...
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=9Jt2rRiSq0U" target="_blank"><img src="http://img.youtube.com/vi/9Jt2rRiSq0U/0.jpg" 
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fmoschotto%2FOpenTX_GPS_Telemetry&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+

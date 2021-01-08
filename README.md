@@ -32,9 +32,9 @@ GPS coordinates and type it into to your mobile phone...
 
 - distance to your home position - how far you need to walk ;)
 
-- Reset Telemetry (home positon and distance):
+- Reset telemetry data (home positon and distance):
 
-   [TARANIS] Reset telemetry data and total distance via "long press enter"
+   [TARANIS] Reset via "long press enter"
 
    [T16 etc] Reset via "long press enter" -> statistics -> "long press enter" to reset statistics and exit menu in under 10 seconds	
 

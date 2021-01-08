@@ -1,4 +1,4 @@
-# OpenTX GPS LUA TELEMETRY screens - GPS last known postions v2.0
+# OpenTX GPS LUA TELEMETRY screens - GPS last known postions v2.1
 
 Copyright (C) by mosch   
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
@@ -32,9 +32,9 @@ GPS coordinates and type it into to your mobile phone...
 
 - distance to your home position - how far you need to walk ;)
 
-- Reset telemetry data and total distance via "long press enter"
-  *** Reset telemetry DOES NOT WORK in HOROUS/JUMPER - event not implemented yet
-  *** Turn off/on to reset telemetry data
+-Reset Telemetry (home positon and distance):
+[TARANIS] Reset telemetry data and total distance via "long press enter"
+[T16 etc] Reset via "long press enter" -> statistics -> "long press enter" to reset statistics and exit menu in under 10 seconds	
 
 
 ### Install Taranis models:

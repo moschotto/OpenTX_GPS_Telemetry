@@ -4,7 +4,7 @@ Copyright (C) by mosch
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories 
 
-"TELEMETRY screen - GPS last known postions v2.0"  
+"TELEMETRY screen - GPS last known postions v2.1"  
 
  
 Description:
@@ -78,8 +78,8 @@ log_filename = "/LOGS/GPSpositions.txt"
 			time_power_on = SecondsToClock(getGlobalTimer()["session"])
 							
 			--write logfile		
-			file = io.open(log_filename, "a")    						
-			io.write(file, wgt.coordinates_current ..",".. time_power_on,"\r\n")			
+			file = io.open(log_filename, "a")    									
+			io.write(file, wgt.coordinates_current ..",".. time_power_on ..", "..  wgt.gpsSATS, "\r\n")		
 			io.close(file)			
 
 			if wgt.ctr >= 99 then
@@ -275,8 +275,16 @@ function refresh(wgt)
 
 	get_data(wgt) 	
   
-	-- display T16: 480*272px / 1/2 Zone size: 220x152 
+	--workaround to reset telemetry data via global session timer
+	--reset via "long press enter" -> statistics -> "long press enter" exit menu under 10 seconds	
+	if (SecondsToClock(getGlobalTimer()["session"]) == "00:00:10") then
+		wgt.gpsDtH = 0
+		wgt.gpsTotalDist = 0
+		wgt.gpsLAT_H = 0
+		wgt.gpsLON_H = 0	
+	end 	
 	
+	-- display T16: 480*272px / 1/2 Zone size: 220x152 
 	--headline
 	if wgt.update == true then	
 		lcd.setColor(CUSTOM_COLOR, lcd.RGB(0x9D, 0xD6, 0x00))

@@ -4,7 +4,7 @@ Copyright (C) by mosch
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories 
 
-"TELEMETRY screen - GPS last known postions v2.0"  
+"TELEMETRY screen - GPS last known postions v2.1"  
 
  
 Description:
@@ -85,7 +85,7 @@ local function write_log()
 						
 		--write logfile		
 		file = io.open(log_filename, "a")    						
-		io.write(file, coordinates_current ..",".. time_power_on,"\r\n")			
+		io.write(file, coordinates_current ..",".. time_power_on ..", "..  gpsSATS, "\r\n")			
 		io.close(file)			
 
 		if ctr >= 99 then
@@ -204,7 +204,7 @@ local function background()
 
 			--data for displaying the 
 			coordinates_prev = string.format("%02d",ctr) ..", ".. gpsPrevLAT..", " .. gpsPrevLON
-			coordinates_current = string.format("%02d",ctr+1) ..", ".. gpsLAT..", " .. gpsLON		
+			coordinates_current = string.format("%02d",ctr+1) ..", ".. gpsLAT..", " .. gpsLON 
 											
 			gpsPrevLAT = gpsLAT
 			gpsPrevLON = gpsLON	

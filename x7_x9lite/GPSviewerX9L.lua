@@ -1,5 +1,5 @@
 --[[#############################################################################
-GPS Position viewer v1.0
+GPS Position viewer v1.1
 Copyright (C) by mosch   
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories
@@ -43,12 +43,15 @@ local function Viewer_Draw_LCD(item)
   	lcd.clear() 	
 	lcd.drawLine(0,0,0,64, SOLID, FORCE)	
 	lcd.drawLine(127,0,127,64, SOLID, FORCE)
-	lcd.drawText(2,1,"GPS Position viewer v1.0" ,SMLSIZE)		
+	lcd.drawText(2,1,"GPS Position viewer v1.1" ,SMLSIZE)		
 	lcd.drawFilledRectangle(1,0, 126, 9, GREY_DEFAULT)
 	
-	lcd.drawText(2,11, "No# " ..(item + 1).." / " .. linectr,SMLSIZE)	
+	
 	lcd.drawLine(60,8, 60, 19, SOLID, FORCE)	
+	lcd.drawText(64,11, "Sats:",SMLSIZE)	
+	lcd.drawLine(97,8, 97, 19, SOLID, FORCE)
 	lcd.drawLine(0,19, 128, 19, SOLID, FORCE)		
+	lcd.drawText(100,11, (item + 1).."/" .. linectr,SMLSIZE)		
 		
 	if item < 4 then
 		--first 4 rows static
@@ -58,31 +61,35 @@ local function Viewer_Draw_LCD(item)
 		local line3 = splitstring(coordinates[3])
 	
 		if item == 0 then
-			lcd.drawText(64,11, "Time: " .. string.gsub(line0[3], "%s+", ""), SMLSIZE)
-			lcd.drawText(2,24, "# ".. line0[1] ..", " .. line0[2] ,SMLSIZE + BLINK + INVERS)		
+			lcd.drawText(2,11, "Time:" .. string.gsub(line0[3], "%s+", ""), SMLSIZE)
+			lcd.drawText(64,11, "Sats:" .. string.gsub(line0[4], "%s+","") ,SMLSIZE)	
+			lcd.drawText(2,24, line0[1] .."," .. line0[2] ,SMLSIZE + BLINK + INVERS)		
 		else
-			lcd.drawText(2,24, "# ".. line0[1] ..", " .. line0[2] ,SMLSIZE)
+			lcd.drawText(2,24, line0[1] .."," .. line0[2] ,SMLSIZE)
 		end 
 		
 		if item == 1 then
-			lcd.drawText(64,11, "Time: " .. string.gsub(line1[3], "%s+", ""), SMLSIZE)
-			lcd.drawText(2,34, "# ".. line1[1] ..", " .. line1[2] ,SMLSIZE + BLINK + INVERS)
+			lcd.drawText(2,11, "Time:" .. string.gsub(line1[3], "%s+",""), SMLSIZE)
+			lcd.drawText(64,11, "Sats:" .. string.gsub(line1[4], "%s+","") ,SMLSIZE)	
+			lcd.drawText(2,34, line1[1] .."," .. line1[2] ,SMLSIZE + BLINK + INVERS)
 		else
-			lcd.drawText(2,34, "# ".. line1[1] ..", " .. line1[2] ,SMLSIZE)
+			lcd.drawText(2,34, line1[1] .."," .. line1[2] ,SMLSIZE)
 		end  
 		
 		if item == 2 then
-			lcd.drawText(64,11, "Time: " .. string.gsub(line2[3], "%s+", ""), SMLSIZE)
-			lcd.drawText(2,44, "# ".. line2[1] ..", " .. line2[2] ,SMLSIZE + BLINK + INVERS)
+			lcd.drawText(2,11, "Time:" .. string.gsub(line2[3], "%s+",""), SMLSIZE)
+			lcd.drawText(64,11, "Sats:" .. string.gsub(line2[4], "%s+","") ,SMLSIZE)	
+			lcd.drawText(2,44, line2[1] .."," .. line2[2] ,SMLSIZE + BLINK + INVERS)
 		else
-			lcd.drawText(2,44, "# ".. line2[1] ..", " .. line2[2] ,SMLSIZE)
+			lcd.drawText(2,44, line2[1] .."," .. line2[2] ,SMLSIZE)
 		end 
 		
 		if item == 3 then
-			lcd.drawText(64,11, "Time: " .. string.gsub(line3[3], "%s+", ""), SMLSIZE)
-			lcd.drawText(2,54, "# ".. line3[1] ..", " .. line3[2] ,SMLSIZE + BLINK + INVERS)
+			lcd.drawText(2,11, "Time:" .. string.gsub(line3[3], "%s+",""), SMLSIZE)
+			lcd.drawText(64,11, "Sats:" .. string.gsub(line3[4], "%s+","") ,SMLSIZE)	
+			lcd.drawText(2,54, line3[1] .."," .. line3[2] ,SMLSIZE + BLINK + INVERS)
 		else
-			lcd.drawText(2,54, "# ".. line3[1] ..", " .. line3[2] ,SMLSIZE)
+			lcd.drawText(2,54, line3[1] .."," .. line3[2] ,SMLSIZE)
 		end  
 	else
 						
@@ -91,11 +98,12 @@ local function Viewer_Draw_LCD(item)
 		local line2 = splitstring(coordinates[item-1])
 		local line3 = splitstring(coordinates[item])
 	
-		lcd.drawText(64,11, "Time: " .. string.gsub(line3[3], "%s+", ""), SMLSIZE)
-		lcd.drawText(2,24, "# ".. line0[1] ..", " .. line0[2] ,SMLSIZE)
-		lcd.drawText(2,34, "# ".. line1[1] ..", " .. line1[2] ,SMLSIZE)
-		lcd.drawText(2,44, "# ".. line2[1] ..", " .. line2[2] ,SMLSIZE)
-		lcd.drawText(2,54, "# ".. line3[1] ..", " .. line3[2] ,SMLSIZE + BLINK + INVERS)
+		lcd.drawText(2,11, "Time:" .. string.gsub(line3[3], "%s+",""), SMLSIZE)
+		lcd.drawText(64,11, "Sats:" .. string.gsub(line3[4], "%s+","") ,SMLSIZE)	
+		lcd.drawText(2,24, line0[1] .."," .. line0[2],SMLSIZE)
+		lcd.drawText(2,34, line1[1] .."," .. line1[2],SMLSIZE)
+		lcd.drawText(2,44, line2[1] .."," .. line2[2],SMLSIZE)
+		lcd.drawText(2,54, line3[1] .."," .. line3[2],SMLSIZE + BLINK + INVERS)
 		
 	end 
 		

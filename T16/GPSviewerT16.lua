@@ -1,5 +1,5 @@
 --[[#############################################################################
-GPS Position viewer v1.0
+GPS Position viewer v1.1
 Copyright (C) by mosch   
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories
@@ -45,11 +45,12 @@ local function Viewer_Draw_LCD(item)
 	
 	lcd.setColor(CUSTOM_COLOR, lcd.RGB(0x9D, 0xD6, 0x00))	
 	lcd.drawFilledRectangle(1,0, 480, 28, CUSTOM_COLOR)	
-	lcd.drawText(0,0,"GPS Position viewer v1.0" ,MIDSIZE)
+	lcd.drawText(0,0,"GPS Position viewer v1.1" ,MIDSIZE)
 	lcd.drawLine(0,28,480,28, SOLID, LINE_COLOR)	
 	
 	
 	lcd.drawText(2,28, "No# " ..(item + 1).." / " .. linectr,MIDSIZE)	
+	lcd.drawText(170,28, "Sats:",MIDSIZE)	
 	lcd.drawLine(0,60, 480, 60, SOLID, LINE_COLOR)	
 		
 	if item < 4 then
@@ -61,6 +62,7 @@ local function Viewer_Draw_LCD(item)
 	
 		if item == 0 then
 			lcd.drawText(310,28, "Time: " .. string.gsub(line0[3], "%s+", ""), MIDSIZE )
+			lcd.drawText(170,28, "Sats:" .. string.gsub(line0[4], "%s+","") ,MIDSIZE)	
 			lcd.drawText(2,64, "# ".. line0[1] ..", " .. line0[2] ,MIDSIZE + BLINK + INVERS)		
 		else
 			lcd.drawText(2,64, "# ".. line0[1] ..", " .. line0[2] ,MIDSIZE)
@@ -68,6 +70,7 @@ local function Viewer_Draw_LCD(item)
 		
 		if item == 1 then
 			lcd.drawText(310,28, "Time: " .. string.gsub(line1[3], "%s+", ""), MIDSIZE)
+			lcd.drawText(170,28, "Sats:" .. string.gsub(line1[4], "%s+","") ,MIDSIZE)	
 			lcd.drawText(2,94, "# ".. line1[1] ..", " .. line1[2] ,MIDSIZE + BLINK + INVERS)
 		else
 			lcd.drawText(2,94, "# ".. line1[1] ..", " .. line1[2] ,MIDSIZE)
@@ -75,6 +78,7 @@ local function Viewer_Draw_LCD(item)
 		
 		if item == 2 then
 			lcd.drawText(310,28, "Time: " .. string.gsub(line2[3], "%s+", ""), MIDSIZE)
+			lcd.drawText(170,28, "Sats:" .. string.gsub(line2[4], "%s+","") ,MIDSIZE)	
 			lcd.drawText(2,124, "# ".. line2[1] ..", " .. line2[2] ,MIDSIZE + BLINK + INVERS)
 		else
 			lcd.drawText(2,124, "# ".. line2[1] ..", " .. line2[2] ,MIDSIZE)
@@ -82,6 +86,7 @@ local function Viewer_Draw_LCD(item)
 		
 		if item == 3 then
 			lcd.drawText(310,28, "Time: " .. string.gsub(line3[3], "%s+", ""), MIDSIZE)
+			lcd.drawText(170,28, "Sats:" .. string.gsub(line3[4], "%s+","") ,MIDSIZE)	
 			lcd.drawText(2,154, "# ".. line3[1] ..", " .. line3[2] ,MIDSIZE + BLINK + INVERS)
 		else
 			lcd.drawText(2,154, "# ".. line3[1] ..", " .. line3[2] ,MIDSIZE)
@@ -94,6 +99,7 @@ local function Viewer_Draw_LCD(item)
 		local line3 = splitstring(coordinates[item])
 	
 		lcd.drawText(310,28, "Time: " .. string.gsub(line3[3], "%s+", ""), MIDSIZE)
+		lcd.drawText(170,28, "Sats:" .. string.gsub(line3[4], "%s+","") ,MIDSIZE)	
 		lcd.drawText(2,64, "# ".. line0[1] ..", " .. line0[2] ,MIDSIZE)
 		lcd.drawText(2,94, "# ".. line1[1] ..", " .. line1[2] ,MIDSIZE)
 		lcd.drawText(2,124, "# ".. line2[1] ..", " .. line2[2] ,MIDSIZE)

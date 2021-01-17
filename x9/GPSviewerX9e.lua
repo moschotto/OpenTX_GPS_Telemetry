@@ -15,7 +15,7 @@ copy "GPSviewer.lua" to the /SCRIPTS/TOOLS/ folder
 ################################################################################]]
 
 
-local toolName = "TNS|GPS Log Viewer x9|TNE"
+local toolName = "TNS|GPS Log Viewerx9e|TNE"
 local log_filename = "/LOGS/GPSpositions.txt"
 local file_exist = false
 local string_gmatch = string.gmatch
@@ -59,7 +59,7 @@ local function Viewer_Draw_LCD(item)
 		local line2 = splitstring(coordinates[2])
 		local line3 = splitstring(coordinates[3])
 	
-		if item == 0 then		
+		if item == 0 then			  
 			lcd.drawText(150,11, "Time: " .. string.gsub(line0[3], "%s+", ""), SMLSIZE)
 			lcd.drawText(68,11, "Sats:" .. string.gsub(line0[4], "%s+","") ,SMLSIZE)	
 			lcd.drawText(2,24, "# ".. line0[1] ..", " .. line0[2] ,SMLSIZE + BLINK + INVERS)		
@@ -149,19 +149,17 @@ local function Viewer_Run(event)
 			
 			Viewer_Draw_LCD(item)  
 			--handle scroll counter
-			if event == EVT_PLUS_FIRST or event == EVT_PLUS_REPT then 			
+			if event == EVT_ROT_RIGHT or event == EVT_PLUS_FIRST then 			
 				if item  < linectr-1 then
 					item = item + 1
 				end						  
 			end				
-			if event == EVT_MINUS_FIRST or event == EVT_MINUS_REPT  then      
+			if event == EVT_ROT_LEFT or event == EVT_MINUS_FIRST then      
 				if item > 0 then
 					item = item - 1								
 				end		
 			end
-			
-
-		
+					
 		else
 			--display error message
 			lcd.clear() 

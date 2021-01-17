@@ -13,6 +13,7 @@ GITHUB: https://github.com/moschotto?tab=repositories
 ### Radios with 212x64 pixel displays (e.g. x9d/x9+/x9E)
 - /x9/GPSx9.lua
 - /x9/GPSviewerX9.lua
+- /x9/GPSviewerX9e.lua
 
 ### Radios with 128x64 pixel displays (e.g. x7 / x9 lite)
 - /x7_x9lite/GPSx9L.lua

@@ -4,7 +4,7 @@ Copyright (C) by mosch
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories 
 
-"TELEMETRY screen - GPS last known postions v2.1"  
+"TELEMETRY screen - GPS last known postions v2.2"  
 
  
 Description:
@@ -124,7 +124,8 @@ log_filename = "/LOGS/GPSpositions.txt"
 
 --############################################################################
 local options = {
-  { "LINE_COLOR", COLOR, WHITE }
+  { "LineColor", COLOR, WHITE },
+  { "TextColor", COLOR, BLACK }
 }
 
 local function create(zone, options)
@@ -272,6 +273,9 @@ local function get_data(wgt)
 end
 
 function refresh(wgt)
+
+	lcd.setColor(TEXT_COLOR, wgt.options.TextColor)
+	lcd.setColor(LINE_COLOR, wgt.options.LineColor)
 
 	get_data(wgt) 	
   

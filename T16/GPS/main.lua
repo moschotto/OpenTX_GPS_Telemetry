@@ -4,7 +4,7 @@ Copyright (C) by mosch
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories 
 
-"TELEMETRY screen - GPS last known postions v2.2"  
+"TELEMETRY screen - GPS last known postions v2.3"  
 
  
 Description:
@@ -31,6 +31,12 @@ Install:
 
 
 log_filename = "/LOGS/GPSpositions.txt"
+local sat_img 
+local dis_img 
+local disT_img 
+local home_img  
+local drone_img
+
 
 
 --[	####################################################################
@@ -161,28 +167,30 @@ local function create(zone, options)
 	dis_img = 0,
 	disT_img = 0	
 	}
-	
-	wgt.gpsId = getTelemetryId("GPS")
-	
-	--number of satellites crossfire
-	wgt.gpssatId = getTelemetryId("Sats")
-	
-	--if Stats can't be read, try to read Tmp2 (number of satellites SBUS/FRSKY)
-	if (wgt.gpssatId == -1) then wgt.gpssatId = getTelemetryId("Tmp2") end	
-	
+		
 	--load images
-	wgt.sat_img = Bitmap.open("/WIDGETS/GPS/BMP/sat128.png")
-	wgt.dis_img = Bitmap.open("/WIDGETS/GPS/BMP/distance128.png")
-	wgt.disT_img = Bitmap.open("/WIDGETS/GPS/BMP/distanceT128.png")
-	wgt.home_img = Bitmap.open("/WIDGETS/GPS/BMP/home128.png")
-	wgt.drone_img = Bitmap.open("/WIDGETS/GPS/BMP/drone128.png")
+	sat_img = Bitmap.open("/WIDGETS/GPS/BMP/sat128.png")
+	dis_img = Bitmap.open("/WIDGETS/GPS/BMP/distance128.png")
+	disT_img = Bitmap.open("/WIDGETS/GPS/BMP/distanceT128.png")
+	home_img = Bitmap.open("/WIDGETS/GPS/BMP/home128.png")
+	drone_img = Bitmap.open("/WIDGETS/GPS/BMP/drone128.png")
 	
-	
+		
 	return wgt
 end
 
 local function update(wgt, options)
-	wgt.options = options     
+
+	if (wgt == nil) then		
+		print("GPS_Debug", "Widget not initialized - 1")	
+		return
+	end
+	
+	wgt.options = options   
+  	
+	lcd.setColor(TEXT_COLOR, wgt.options.TextColor)
+	lcd.setColor(LINE_COLOR, wgt.options.LineColor)
+		
 end
 
 local function background(wgt)
@@ -191,9 +199,22 @@ end
 
 local function get_data(wgt)
       
-  --####################################################################
+	  
+	--####################################################################
+	--get Sensor IDs
+	--####################################################################		
+	wgt.gpsId = getTelemetryId("GPS")
+	
+	--number of satellites crossfire
+	wgt.gpssatId = getTelemetryId("Sats")
+	
+	--if Stats can't be read, try to read Tmp2 (number of satellites SBUS/FRSKY)
+	if (wgt.gpssatId == -1) then wgt.gpssatId = getTelemetryId("Tmp2") end	
+		  
+	  
+	--####################################################################
 	--get Latitude, Longitude
-	--####################################################################	
+	--####################################################################		
 	wgt.gpsLatLon = getValue(wgt.gpsId)
 		
 	if (type(wgt.gpsLatLon) == "table") then 			
@@ -273,12 +294,15 @@ local function get_data(wgt)
 end
 
 function refresh(wgt)
+	
 
-	lcd.setColor(TEXT_COLOR, wgt.options.TextColor)
-	lcd.setColor(LINE_COLOR, wgt.options.LineColor)
-
+	if (wgt == nil) then		
+		print("GPS_Debug", "Widget not initialized - 2")	
+		return
+	end		
+	
 	get_data(wgt) 	
-  
+
 	--workaround to reset telemetry data via global session timer
 	--reset via "long press enter" -> statistics -> "long press enter" exit menu under 10 seconds	
 	if (SecondsToClock(getGlobalTimer()["session"]) == "00:00:10") then
@@ -304,18 +328,18 @@ function refresh(wgt)
 	lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 25, wgt.zone.x + 224, wgt.zone.y + 25, SOLID, LINE_COLOR)
 	
 	--satellites
-	lcd.drawBitmap(wgt.sat_img, wgt.zone.x, wgt.zone.y + 30, 35)
+	lcd.drawBitmap(sat_img, wgt.zone.x, wgt.zone.y + 30, 35)
 	lcd.drawText(wgt.zone.x + 42,wgt.zone.y + 40, wgt.gpsSATS, LEFT + MIDSIZE + TEXT_COLOR)		
 	--lcd.drawLine(wgt.zone.x + 74, wgt.zone.y + 25, wgt.zone.x + 74, wgt.zone.y + 85, SOLID, LINE_COLOR)	
 	
 	--distance to home
-	lcd.drawBitmap(wgt.dis_img, wgt.zone.x + 80, wgt.zone.y + 30, 35)
+	lcd.drawBitmap(dis_img, wgt.zone.x + 80, wgt.zone.y + 30, 35)
 	lcd.drawText(wgt.zone.x + 145 , wgt.zone.y + 30, wgt.gpsDtH, RIGHT + SMLSIZE + TEXT_COLOR)	
 	lcd.drawText(wgt.zone.x + 145 , wgt.zone.y + 50, "km", RIGHT + SMLSIZE + TEXT_COLOR)	
 	--lcd.drawLine(wgt.zone.x + 150, wgt.zone.y + 25, wgt.zone.x + 150, wgt.zone.y + 85, SOLID, LINE_COLOR)	
 	
 	--total total travel 
-	lcd.drawBitmap(wgt.disT_img, wgt.zone.x + 155, wgt.zone.y + 30, 35)
+	lcd.drawBitmap(disT_img, wgt.zone.x + 155, wgt.zone.y + 30, 35)
 	lcd.drawText(wgt.zone.x + 222, wgt.zone.y +30, wgt.gpsTotalDist, RIGHT + SMLSIZE + TEXT_COLOR)	
 	lcd.drawText(wgt.zone.x + 222, wgt.zone.y +50, "km", RIGHT + SMLSIZE + TEXT_COLOR)	
 	
@@ -323,14 +347,14 @@ function refresh(wgt)
 	lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 85, wgt.zone.x + 224, wgt.zone.y + 85, SOLID, LINE_COLOR)
 	
 	--home location
-	lcd.drawBitmap(wgt.home_img, wgt.zone.x, wgt.zone.y + 95, 30)
+	lcd.drawBitmap(home_img, wgt.zone.x, wgt.zone.y + 95, 30)
 	lcd.drawText(wgt.zone.x + 50, wgt.zone.y + 110, wgt.gpsLAT_H .. ", " .. wgt.gpsLON_H, LEFT + SMLSIZE + TEXT_COLOR)	
 		
 	--line horz.
 	lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 145, wgt.zone.x + 224, wgt.zone.y + 145, SOLID, LINE_COLOR)
 	
 	--current and last location
-	lcd.drawBitmap(wgt.drone_img, wgt.zone.x, wgt.zone.y + 150, 40)
+	lcd.drawBitmap(drone_img, wgt.zone.x, wgt.zone.y + 150, 40)
 	lcd.drawText(wgt.zone.x + 50,wgt.zone.y + 158, wgt.coordinates_prev,LEFT + SMLSIZE + TEXT_COLOR)
 	lcd.drawText(wgt.zone.x + 50,wgt.zone.y + 180, wgt.coordinates_current,LEFT + SMLSIZE + TEXT_COLOR)
 	

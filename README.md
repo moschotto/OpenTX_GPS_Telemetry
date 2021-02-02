@@ -29,14 +29,14 @@ GPS coordinates and type it into to your mobile phone...
 
 ![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/description.png)
 
-- Shows and logs GPS related information. log file will be generated in
+- Shows and logs GPS related information. logfile will be generated in
 /LOGS/GPSpositions.txt
 
 - GPS logfile can be viewed with the GPSviewer.lua" on the radio itself
 
 - in case that the telemetry stops, the last coordinates will remain on the screen
 
-- distance to your home position - how far you need to walk ;)
+- distance from your home position - how far you need to walk ;)
 
 -Reset Telemetry (home positon and distance):
 [TARANIS] Reset telemetry data and total distance via "long press enter"

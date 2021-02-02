@@ -316,16 +316,16 @@ function refresh(wgt)
 	--headline
 	if wgt.update == true then	
 		lcd.setColor(CUSTOM_COLOR, lcd.RGB(0x9D, 0xD6, 0x00))
-		lcd.drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0, wgt.zone.x + 215, 25, CUSTOM_COLOR)
+		lcd.drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0, 225, 25, CUSTOM_COLOR)
 		lcd.drawText(wgt.zone.x + 5,wgt.zone.y + 5,wgt.gpsFIX , LEFT + SMLSIZE + TEXT_COLOR)
 	elseif wgt.update == false then
 		lcd.setColor(CUSTOM_COLOR, lcd.RGB(0xe6, 0x32, 24))
-		lcd.drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0, wgt.zone.x + 215, 25, CUSTOM_COLOR )
+		lcd.drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0,  225, 25, CUSTOM_COLOR )
 		lcd.drawText(wgt.zone.x + 5,wgt.zone.y + 5, "no GPS data available", LEFT + SMLSIZE + TEXT_COLOR)		
 	end
 	
 	--line horz.
-	lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 25, wgt.zone.x + 224, wgt.zone.y + 25, SOLID, LINE_COLOR)
+	--lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 25, wgt.zone.x + 224, wgt.zone.y + 25, SOLID, LINE_COLOR)
 	
 	--satellites
 	lcd.drawBitmap(sat_img, wgt.zone.x, wgt.zone.y + 30, 35)

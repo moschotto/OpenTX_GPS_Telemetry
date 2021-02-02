@@ -1,5 +1,5 @@
 --[[#############################################################################
-GPS Telemetry Screen for Taranis x7 / x9 lite (128x64 displays)
+GPS Telemetry Screen for TBS tango 2 (for 128x96 displays)
 Copyright (C) by mosch   
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories 
@@ -231,25 +231,25 @@ local function run(event)
 	end 	
 	
 	-- create screen
-	lcd.drawLine(0,0,0,64, SOLID, FORCE)	
-	lcd.drawLine(127,0,127,64, SOLID, FORCE)	
+	lcd.drawLine(0,0,0,95, SOLID, FORCE)	
+	lcd.drawLine(127,0,127,95, SOLID, FORCE)	
 	
 	lcd.drawText(2,1,"State: " ,SMLSIZE)		
 	lcd.drawFilledRectangle(1,0, 126, 8, GREY_DEFAULT)
 	
 	lcd.drawPixmap(2,10, "/SCRIPTS/TELEMETRY/BMP/Sat16.bmp")		
-	lcd.drawLine(42,8, 42, 27, SOLID, FORCE)		
+	lcd.drawLine(42,8, 42, 32, SOLID, FORCE)		
 	lcd.drawPixmap(44,9, "/SCRIPTS/TELEMETRY/BMP/distance16.bmp")		
-	lcd.drawLine(84,8, 84, 27, SOLID, FORCE)	
+	lcd.drawLine(84,8, 84, 32, SOLID, FORCE)	
 	lcd.drawPixmap(86,9, "/SCRIPTS/TELEMETRY/BMP/total_distance16.bmp")		
 			
-	lcd.drawLine(0,27, 128, 27, SOLID, FORCE)
-				
-	lcd.drawPixmap(2,28, "/SCRIPTS/TELEMETRY/BMP/home16.bmp")		
-	lcd.drawLine(0,44, 128, 44, SOLID, FORCE)
+	lcd.drawLine(0,32, 128, 32, SOLID, FORCE)				
+	lcd.drawPixmap(2,38, "/SCRIPTS/TELEMETRY/BMP/home16.bmp")		
+	
+	lcd.drawLine(0,60, 128, 60, SOLID, FORCE)
 			
-	lcd.drawPixmap(2,47, "/SCRIPTS/TELEMETRY/BMP/drone16.bmp")
-	lcd.drawLine(0,63,127,63, SOLID, FORCE)		
+	lcd.drawPixmap(2,68, "/SCRIPTS/TELEMETRY/BMP/drone16.bmp")
+	lcd.drawLine(0,95,127,95, SOLID, FORCE)	
 	
 	--update screen data
 	if update == true then
@@ -261,10 +261,10 @@ local function run(event)
 		lcd.drawText(103,10, gpsTotalDist, SMLSIZE)
 		lcd.drawText(116,20, "km"  , SMLSIZE)
 		
-		lcd.drawText(20,33, gpsLAT_H .. ", " .. gpsLON_H, SMLSIZE)
+		lcd.drawText(20,43, gpsLAT_H .. ", " .. gpsLON_H, SMLSIZE)
 				
-		lcd.drawText(20,47, coordinates_prev,SMLSIZE)
-		lcd.drawText(20,56, coordinates_current,SMLSIZE)
+		lcd.drawText(20,68, coordinates_prev,SMLSIZE)
+		lcd.drawText(20,82, coordinates_current,SMLSIZE)
 		
 	--blink if telemetry stops
 	elseif update == false then
@@ -276,10 +276,10 @@ local function run(event)
 		lcd.drawText(103,10, gpsTotalDist , SMLSIZE)
 		lcd.drawText(116,20, "km"  , SMLSIZE)		
 		
-		lcd.drawText(20,33, gpsLAT_H .. ", " .. gpsLON_H, SMLSIZE)
+		lcd.drawText(20,43, gpsLAT_H .. ", " .. gpsLON_H, SMLSIZE)
 				
-		lcd.drawText(20,47, coordinates_prev, SMLSIZE + INVERS + BLINK)
-		lcd.drawText(20,56, coordinates_current, SMLSIZE + INVERS + BLINK)	
+		lcd.drawText(20,68, coordinates_prev, SMLSIZE + INVERS + BLINK)
+		lcd.drawText(20,82, coordinates_current, SMLSIZE + INVERS + BLINK)	
 		
 	end	
 end

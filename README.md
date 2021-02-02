@@ -1,4 +1,4 @@
-# OpenTX GPS LUA TELEMETRY screens - GPS last known quad postions v2.2
+# OpenTX GPS LUA TELEMETRY screens - GPS last known postions v2.1
 
 Copyright (C) by mosch   
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
@@ -13,7 +13,6 @@ GITHUB: https://github.com/moschotto?tab=repositories
 ### Radios with 212x64 pixel displays (e.g. x9d/x9+/x9E)
 - /x9/GPSx9.lua
 - /x9/GPSviewerX9.lua
-- /x9/GPSviewerX9e.lua (use this if your radio has a scroll wheel)
 
 ### Radios with 128x64 pixel displays (e.g. x7 / x9 lite)
 - /x7_x9lite/GPSx9L.lua
@@ -33,11 +32,9 @@ GPS coordinates and type it into to your mobile phone...
 
 - distance to your home position - how far you need to walk ;)
 
-- Reset telemetry data (home positon and distance):
-
-   [TARANIS] Reset via "long press enter"
-
-   [T16 etc] Reset via "long press enter" -> statistics -> "long press enter" to reset statistics and exit menu in under 10 seconds	
+-Reset Telemetry (home positon and distance):
+[TARANIS] Reset telemetry data and total distance via "long press enter"
+[T16 etc] Reset via "long press enter" -> statistics -> "long press enter" to reset statistics and exit menu in under 10 seconds	
 
 
 ### Install Taranis models:

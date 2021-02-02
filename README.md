@@ -27,6 +27,8 @@ GITHUB: https://github.com/moschotto?tab=repositories
 How to find your model in case of a crash, power loss etc? Right, check the last 
 GPS coordinates and type it into to your mobile phone...
 
+
+
 - Shows and logs GPS related information. log file will be generated in
 /LOGS/GPSpositions.txt
 

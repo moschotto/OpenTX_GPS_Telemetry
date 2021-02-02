@@ -66,15 +66,18 @@ GPS coordinates and type it into to your mobile phone...
 ### x7 / x9 lite Screens:
 
 ![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/x9L_GPS_screen.PNG)
+
 ![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/x9L_GPSviewer.PNG)
 
 ### x9d/x9+/x9E Screens:
 
 ![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/x9_GPS_screen.PNG)
+
 ![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/x9_GPSviewer.PNG)
 
 ### JUMPER T16 / HOROUS etc WIDGET screen:
 ![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/T16_GPS_screen.png)
+
 ![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/T16_GPSViewer.png)
 
 

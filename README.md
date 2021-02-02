@@ -27,7 +27,7 @@ GITHUB: https://github.com/moschotto?tab=repositories
 How to find your model in case of a crash, power loss etc? Right, check the last 
 GPS coordinates and type it into to your mobile phone...
 
-
+![Alt text](https://github.com/moschotto/Taranis_GPS_Telemetry/blob/main/media/description.png)
 
 - Shows and logs GPS related information. log file will be generated in
 /LOGS/GPSpositions.txt

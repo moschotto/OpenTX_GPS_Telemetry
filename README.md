@@ -15,14 +15,14 @@ GITHUB: https://github.com/moschotto?tab=repositories
 - /x9/GPSviewerX9.lua
 
 ### Radios with 128x96 pixel displays (e.g. TBS Tango 2)
-- /x7_x9lite/GPSxT.lua
-- /x7_x9lite/GPSviewerT.lua
+- /TBS_Tango/GPSxT.lua
+- /TBS_Tango/GPSviewerT.lua
 
 ### Radios with 128x64 pixel displays (e.g. x7 / x9 lite)
-- /TBS_Tango/GPSx9L.lua
-- /TBS_Tango/GPSviewerX9L.lua
 
- 
+- /x7_x9lite/GPSx9L.lua
+- /x7_x9lite/GPSviewerX9L.lua
+
 ### Description:
 How to find your model in case of a crash, power loss etc? Right, check the last 
 GPS coordinates and type it into to your mobile phone...

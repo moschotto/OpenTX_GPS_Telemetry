@@ -1,4 +1,4 @@
-# OpenTX GPS LUA TELEMETRY screens - GPS last known postions v2.1
+# OpenTX GPS LUA TELEMETRY screens - GPS last known postions v2.3
 
 Copyright (C) by mosch   
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
@@ -14,9 +14,13 @@ GITHUB: https://github.com/moschotto?tab=repositories
 - /x9/GPSx9.lua
 - /x9/GPSviewerX9.lua
 
+### Radios with 128x96 pixel displays (e.g. TBS Tango 2)
+- /x7_x9lite/GPSxT.lua
+- /x7_x9lite/GPSviewerT.lua
+
 ### Radios with 128x64 pixel displays (e.g. x7 / x9 lite)
-- /x7_x9lite/GPSx9L.lua
-- /x7_x9lite/GPSviewerX9L.lua
+- /TBS_Tango/GPSx9L.lua
+- /TBS_Tango/GPSviewerX9L.lua
 
  
 ### Description:
@@ -54,8 +58,7 @@ GPS coordinates and type it into to your mobile phone...
 - Setup "1/2" widget screen and select "GPS"
 
 
-##################################################
-
+#########################
 
 
 ### x7 / x9 lite Screens:

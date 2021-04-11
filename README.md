@@ -38,7 +38,8 @@ GPS coordinates and type it into to your mobile phone...
 
 - distance from your home position - how far you need to walk ;)
 
--Reset Telemetry (home positon and distance):
+IMPORTANT:
+-Reset Telemetry once you have a good and valid GPS fix (this resets home positon and distance):
 
 [TARANIS] Reset telemetry data and total distance via "long press enter"
 

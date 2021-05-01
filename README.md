@@ -18,7 +18,7 @@ GITHUB: https://github.com/moschotto?tab=repositories
 - /TBS_Tango/GPSxT.lua
 - /TBS_Tango/GPSviewerT.lua
 
-### Radios with 128x64 pixel displays (e.g. x7 / x9 lite)
+### Radios with 128x64 pixel displays (e.g. x7 / x9 lite / Jumper T-lite)
 
 - /x7_x9lite/GPSx9L.lua
 - /x7_x9lite/GPSviewerX9L.lua

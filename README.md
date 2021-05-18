@@ -52,6 +52,7 @@ IMPORTANT:
 - copy GPSviewerxxx.lua to /SCRIPTS/TOOLS
 
 - copy the ICON folder to /SCRIPTS/TELEMETRY/BMP
+- make sure that the /LOGS/ folder exists
 
 - Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
 
@@ -59,6 +60,8 @@ IMPORTANT:
 
 - copy the GPS folder (inculding subfolders) to /WIDGETS/GPS
 - copy GPSviewerT16.lua to /SCRIPTS/TOOLS
+
+- make sure that the /LOGS/ folder exists
 
 - Setup "1/2" widget screen and select "GPS"
 

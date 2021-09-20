@@ -130,8 +130,6 @@ local drone_img
 
 --############################################################################
 local options = {
-  { "LineColor", COLOR, WHITE },
-  { "TextColor", COLOR, BLACK }
 }
 
 local function create(zone, options)
@@ -187,10 +185,6 @@ local function update(wgt, options)
 	end
 	
 	wgt.options = options   
-  	
-	lcd.setColor(TEXT_COLOR, wgt.options.TextColor)
-	lcd.setColor(LINE_COLOR, wgt.options.LineColor)
-		
 end
 
 local function background(wgt)
@@ -315,48 +309,46 @@ function refresh(wgt)
 	-- display T16: 480*272px / 1/2 Zone size: 220x152 
 	--headline
 	if wgt.update == true then	
-		lcd.setColor(CUSTOM_COLOR, lcd.RGB(0x9D, 0xD6, 0x00))
-		lcd.drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0, 225, 25, CUSTOM_COLOR)
-		lcd.drawText(wgt.zone.x + 5,wgt.zone.y + 5,wgt.gpsFIX , LEFT + SMLSIZE + TEXT_COLOR)
+		lcd.drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0, 225, 25, lcd.RGB(0x9D, 0xD6, 0x00))
+		lcd.drawText(wgt.zone.x + 5,wgt.zone.y + 5,wgt.gpsFIX , LEFT + SMLSIZE + COLOR_THEME_PRIMARY1)
 	elseif wgt.update == false then
-		lcd.setColor(CUSTOM_COLOR, lcd.RGB(0xe6, 0x32, 24))
-		lcd.drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0,  225, 25, CUSTOM_COLOR )
-		lcd.drawText(wgt.zone.x + 5,wgt.zone.y + 5, "no GPS data available", LEFT + SMLSIZE + TEXT_COLOR)		
+		lcd.drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0,  225, 25, lcd.RGB(0xE6, 0x32, 24))
+		lcd.drawText(wgt.zone.x + 5,wgt.zone.y + 5, "no GPS data available", LEFT + SMLSIZE + COLOR_THEME_PRIMARY1)		
 	end
 	
 	--line horz.
-	--lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 25, wgt.zone.x + 224, wgt.zone.y + 25, SOLID, LINE_COLOR)
+	--lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 25, wgt.zone.x + 224, wgt.zone.y + 25, SOLID, COLOR_THEME_PRIMARY2)
 	
 	--satellites
 	lcd.drawBitmap(sat_img, wgt.zone.x, wgt.zone.y + 30, 35)
-	lcd.drawText(wgt.zone.x + 42,wgt.zone.y + 40, wgt.gpsSATS, LEFT + MIDSIZE + TEXT_COLOR)		
-	--lcd.drawLine(wgt.zone.x + 74, wgt.zone.y + 25, wgt.zone.x + 74, wgt.zone.y + 85, SOLID, LINE_COLOR)	
+	lcd.drawText(wgt.zone.x + 42,wgt.zone.y + 40, wgt.gpsSATS, LEFT + MIDSIZE + COLOR_THEME_PRIMARY1)		
+	--lcd.drawLine(wgt.zone.x + 74, wgt.zone.y + 25, wgt.zone.x + 74, wgt.zone.y + 85, SOLID, COLOR_THEME_PRIMARY2)	
 	
 	--distance to home
 	lcd.drawBitmap(dis_img, wgt.zone.x + 80, wgt.zone.y + 30, 35)
-	lcd.drawText(wgt.zone.x + 145 , wgt.zone.y + 30, wgt.gpsDtH, RIGHT + SMLSIZE + TEXT_COLOR)	
-	lcd.drawText(wgt.zone.x + 145 , wgt.zone.y + 50, "km", RIGHT + SMLSIZE + TEXT_COLOR)	
-	--lcd.drawLine(wgt.zone.x + 150, wgt.zone.y + 25, wgt.zone.x + 150, wgt.zone.y + 85, SOLID, LINE_COLOR)	
+	lcd.drawText(wgt.zone.x + 145 , wgt.zone.y + 30, wgt.gpsDtH, RIGHT + SMLSIZE + COLOR_THEME_PRIMARY1)	
+	lcd.drawText(wgt.zone.x + 145 , wgt.zone.y + 50, "km", RIGHT + SMLSIZE + COLOR_THEME_PRIMARY1)	
+	--lcd.drawLine(wgt.zone.x + 150, wgt.zone.y + 25, wgt.zone.x + 150, wgt.zone.y + 85, SOLID, COLOR_THEME_PRIMARY2)	
 	
 	--total total travel 
 	lcd.drawBitmap(disT_img, wgt.zone.x + 155, wgt.zone.y + 30, 35)
-	lcd.drawText(wgt.zone.x + 222, wgt.zone.y +30, wgt.gpsTotalDist, RIGHT + SMLSIZE + TEXT_COLOR)	
-	lcd.drawText(wgt.zone.x + 222, wgt.zone.y +50, "km", RIGHT + SMLSIZE + TEXT_COLOR)	
+	lcd.drawText(wgt.zone.x + 222, wgt.zone.y +30, wgt.gpsTotalDist, RIGHT + SMLSIZE + COLOR_THEME_PRIMARY1)	
+	lcd.drawText(wgt.zone.x + 222, wgt.zone.y +50, "km", RIGHT + SMLSIZE + COLOR_THEME_PRIMARY1)	
 	
 	--line horz.
-	lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 85, wgt.zone.x + 224, wgt.zone.y + 85, SOLID, LINE_COLOR)
+	lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 85, wgt.zone.x + 224, wgt.zone.y + 85, SOLID, COLOR_THEME_PRIMARY2)
 	
 	--home location
 	lcd.drawBitmap(home_img, wgt.zone.x, wgt.zone.y + 95, 30)
-	lcd.drawText(wgt.zone.x + 50, wgt.zone.y + 110, wgt.gpsLAT_H .. ", " .. wgt.gpsLON_H, LEFT + SMLSIZE + TEXT_COLOR)	
+	lcd.drawText(wgt.zone.x + 50, wgt.zone.y + 110, wgt.gpsLAT_H .. ", " .. wgt.gpsLON_H, LEFT + SMLSIZE + COLOR_THEME_PRIMARY1)	
 		
 	--line horz.
-	lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 145, wgt.zone.x + 224, wgt.zone.y + 145, SOLID, LINE_COLOR)
+	lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 145, wgt.zone.x + 224, wgt.zone.y + 145, SOLID, COLOR_THEME_PRIMARY2)
 	
 	--current and last location
 	lcd.drawBitmap(drone_img, wgt.zone.x, wgt.zone.y + 150, 40)
-	lcd.drawText(wgt.zone.x + 50,wgt.zone.y + 158, wgt.coordinates_prev,LEFT + SMLSIZE + TEXT_COLOR)
-	lcd.drawText(wgt.zone.x + 50,wgt.zone.y + 180, wgt.coordinates_current,LEFT + SMLSIZE + TEXT_COLOR)
+	lcd.drawText(wgt.zone.x + 50,wgt.zone.y + 158, wgt.coordinates_prev,LEFT + SMLSIZE + COLOR_THEME_PRIMARY1)
+	lcd.drawText(wgt.zone.x + 50,wgt.zone.y + 180, wgt.coordinates_current,LEFT + SMLSIZE + COLOR_THEME_PRIMARY1)
 	
 	 
 end

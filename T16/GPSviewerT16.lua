@@ -43,15 +43,14 @@ local function Viewer_Draw_LCD(item)
 	-- display T16: 480*272px
   	lcd.clear() 	
 	
-	lcd.setColor(CUSTOM_COLOR, lcd.RGB(0x9D, 0xD6, 0x00))	
-	lcd.drawFilledRectangle(1,0, 480, 28, CUSTOM_COLOR)	
+	lcd.drawFilledRectangle(1,0, 480, 28, lcd.RGB(0x9D, 0xD6, 0x00))	
 	lcd.drawText(0,0,"GPS Position viewer v1.1" ,MIDSIZE)
-	lcd.drawLine(0,28,480,28, SOLID, LINE_COLOR)	
+	lcd.drawLine(0,28,480,28, SOLID, COLOR_THEME_PRIMARY2)	
 	
 	
 	lcd.drawText(2,28, "No# " ..(item + 1).." / " .. linectr,MIDSIZE)	
 	lcd.drawText(170,28, "Sats:",MIDSIZE)	
-	lcd.drawLine(0,60, 480, 60, SOLID, LINE_COLOR)	
+	lcd.drawLine(0,60, 480, 60, SOLID, COLOR_THEME_PRIMARY2)	
 		
 	if item < 4 then
 		--first 4 rows static
@@ -166,12 +165,12 @@ local function Viewer_Run(event)
 		else
 			--display error message
 			lcd.clear() 
-			lcd.drawLine(0,0,0,64, SOLID, LINE_COLOR)	
-			lcd.drawLine(480,0,480,64, SOLID, LINE_COLOR)
+			lcd.drawLine(0,0,0,64, SOLID, COLOR_THEME_PRIMARY2)	
+			lcd.drawLine(480,0,480,64, SOLID, COLOR_THEME_PRIMARY2)
 			lcd.drawText(2,1,"GPS Postion viewer" ,MIDSIZE)					
 			lcd.drawText(0,94, "Logfile does not exist", MIDSIZE)	
 			lcd.drawText(0,128, log_filename, MIDSIZE + BLINK)		
-			lcd.drawLine(0,62, 480, 62, SOLID, LINE_COLOR)					
+			lcd.drawLine(0,62, 480, 62, SOLID, COLOR_THEME_PRIMARY2)					
 		end
 		
 		if event == EVT_VIRTUAL_EXIT then

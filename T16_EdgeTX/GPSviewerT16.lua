@@ -1,5 +1,5 @@
 --[[#############################################################################
-GPS Position viewer v1.1
+GPS Position viewer v1.2
 Copyright (C) by mosch   
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories
@@ -62,33 +62,33 @@ local function Viewer_Draw_LCD(item)
 		if item == 0 then
 			lcd.drawText(310,28, "Time: " .. string.gsub(line0[3], "%s+", ""), MIDSIZE )
 			lcd.drawText(170,28, "Sats:" .. string.gsub(line0[4], "%s+","") ,MIDSIZE)	
-			lcd.drawText(2,64, "# ".. line0[1] ..", " .. line0[2] ,MIDSIZE + BLINK + INVERS)		
+			lcd.drawText(2,64, "# ".. line0[1] ..", " .. line0[2] ,DBLSIZE + BLINK + INVERS)		
 		else
-			lcd.drawText(2,64, "# ".. line0[1] ..", " .. line0[2] ,MIDSIZE)
+			lcd.drawText(2,64, "# ".. line0[1] ..", " .. line0[2] ,DBLSIZE)
 		end 
 		
 		if item == 1 then
 			lcd.drawText(310,28, "Time: " .. string.gsub(line1[3], "%s+", ""), MIDSIZE)
 			lcd.drawText(170,28, "Sats:" .. string.gsub(line1[4], "%s+","") ,MIDSIZE)	
-			lcd.drawText(2,94, "# ".. line1[1] ..", " .. line1[2] ,MIDSIZE + BLINK + INVERS)
+			lcd.drawText(2,114, "# ".. line1[1] ..", " .. line1[2] ,DBLSIZE + BLINK + INVERS)
 		else
-			lcd.drawText(2,94, "# ".. line1[1] ..", " .. line1[2] ,MIDSIZE)
+			lcd.drawText(2,114, "# ".. line1[1] ..", " .. line1[2] ,DBLSIZE)
 		end  
 		
 		if item == 2 then
 			lcd.drawText(310,28, "Time: " .. string.gsub(line2[3], "%s+", ""), MIDSIZE)
 			lcd.drawText(170,28, "Sats:" .. string.gsub(line2[4], "%s+","") ,MIDSIZE)	
-			lcd.drawText(2,124, "# ".. line2[1] ..", " .. line2[2] ,MIDSIZE + BLINK + INVERS)
+			lcd.drawText(2,164, "# ".. line2[1] ..", " .. line2[2] ,DBLSIZE + BLINK + INVERS)
 		else
-			lcd.drawText(2,124, "# ".. line2[1] ..", " .. line2[2] ,MIDSIZE)
+			lcd.drawText(2,164, "# ".. line2[1] ..", " .. line2[2] ,DBLSIZE)
 		end 
 		
 		if item == 3 then
 			lcd.drawText(310,28, "Time: " .. string.gsub(line3[3], "%s+", ""), MIDSIZE)
 			lcd.drawText(170,28, "Sats:" .. string.gsub(line3[4], "%s+","") ,MIDSIZE)	
-			lcd.drawText(2,154, "# ".. line3[1] ..", " .. line3[2] ,MIDSIZE + BLINK + INVERS)
+			lcd.drawText(2,214, "# ".. line3[1] ..", " .. line3[2] ,DBLSIZE + BLINK + INVERS)
 		else
-			lcd.drawText(2,154, "# ".. line3[1] ..", " .. line3[2] ,MIDSIZE)
+			lcd.drawText(2,214, "# ".. line3[1] ..", " .. line3[2] ,DBLSIZE)
 		end  
 	else
 						
@@ -99,10 +99,10 @@ local function Viewer_Draw_LCD(item)
 	
 		lcd.drawText(310,28, "Time: " .. string.gsub(line3[3], "%s+", ""), MIDSIZE)
 		lcd.drawText(170,28, "Sats:" .. string.gsub(line3[4], "%s+","") ,MIDSIZE)	
-		lcd.drawText(2,64, "# ".. line0[1] ..", " .. line0[2] ,MIDSIZE)
-		lcd.drawText(2,94, "# ".. line1[1] ..", " .. line1[2] ,MIDSIZE)
-		lcd.drawText(2,124, "# ".. line2[1] ..", " .. line2[2] ,MIDSIZE)
-		lcd.drawText(2,154, "# ".. line3[1] ..", " .. line3[2] ,MIDSIZE + BLINK + INVERS)
+		lcd.drawText(2,64, "# ".. line0[1] ..", " .. line0[2] ,DBLSIZE)
+		lcd.drawText(2,114, "# ".. line1[1] ..", " .. line1[2] ,DBLSIZE)
+		lcd.drawText(2,164, "# ".. line2[1] ..", " .. line2[2] ,DBLSIZE)
+		lcd.drawText(2,214, "# ".. line3[1] ..", " .. line3[2] ,DBLSIZE + BLINK + INVERS)
 		
 	end 
 		
@@ -138,7 +138,7 @@ local function Viewer_Init()
 
 
 -- Main
-local function Viewer_Run(event)
+local function Viewer_Run(event, touchState)
   
 	if event == nil then
 		error("Cannot be run as a model script!")
@@ -153,14 +153,28 @@ local function Viewer_Run(event)
 				if item  < linectr-1 then
 					item = item + 1
 				end						  
-			end				
+			end					
 			if event == EVT_ROT_LEFT or event == EVT_MINUS_FIRST then      
 				if item > 0 then
 					item = item - 1								
 				end		
 			end
-			
-
+				
+			--handle touch events
+			if touchState then 
+				if event == EVT_TOUCH_SLIDE  then
+				
+					if touchState.swipeUp then
+						if item  < linectr-1 then
+							item = item + 1
+						end	
+					elseif touchState.swipeDown then
+						if item > 0 then
+							item = item - 1								
+						end	
+					end
+				end			
+			end
 		
 		else
 			--display error message

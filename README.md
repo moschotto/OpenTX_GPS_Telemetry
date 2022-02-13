@@ -26,7 +26,7 @@ NOTE: i'm not using EdgeTX - tested in simulator only
 - /x7_x9lite/GPSx9L.lua
 - /x7_x9lite/GPS Stats X9L.lua
 
-### Description:
+## Description:
 How to find your model in case of a crash, power loss etc? Right, check the last 
 GPS coordinates and type it into to your mobile phone...
 
@@ -49,25 +49,19 @@ IMPORTANT:
 [T16 etc] Reset via "long press enter" -> statistics -> "long press enter" to reset statistics and exit menu in under 10 seconds	
 
 
-### Installation for Taranis models:
-- copy GPSxxx.lua to /SCRIPTS/TELEMETRY
+## Installation for Taranis models:
+1. copy GPSxxx.lua to /SCRIPTS/TELEMETRY
+2. copy GPS Stats XXX.lua to /SCRIPTS/TOOLS
+3. copy the ICON folder to /SCRIPTS/TELEMETRY/BMP
+4. make sure that the /LOGS/ folder exists
+5. Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
 
-- copy GPS Stats XXX.lua to /SCRIPTS/TOOLS
+## Installation for color screen models i.e Jumper/HOROUS/Radiomaster:
 
-- copy the ICON folder to /SCRIPTS/TELEMETRY/BMP
-- make sure that the /LOGS/ folder exists
-
-- Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
-
-### Installation for color screen models i.e Jumper/HOROUS/Radiomaster:
-
-- copy the GPS folder (inculding subfolders) to /WIDGETS/GPS
-- copy GPS stats T16.lua to /SCRIPTS/TOOLS
-
-- make sure that the /LOGS/ folder exists
-
-- Setup "1/2" widget screen and select "GPS"
-
+1. copy the GPS folder (inculding subfolders) to /WIDGETS/GPS
+2. copy GPS stats T16.lua to /SCRIPTS/TOOLS
+3. make sure that the /LOGS/ folder exists
+4. Setup "1/2" widget screen and select "GPS"
 
 #########################
 

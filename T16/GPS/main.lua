@@ -4,7 +4,7 @@ Copyright (C) by mosch
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories 
 
-"TELEMETRY screen - GPS last known postions v2.3"  
+"TELEMETRY screen - GPS last known postions v2.4"  
 
  
 Description:
@@ -36,8 +36,8 @@ local dis_img
 local disT_img 
 local home_img  
 local drone_img
-
-
+local newtext_color = BLACK
+local newline_color = WHITE
 
 --[	####################################################################
 --[	functions
@@ -85,13 +85,15 @@ local drone_img
 							
 			--write logfile		
 			file = io.open(log_filename, "a")    									
-			io.write(file, wgt.coordinates_current ..",".. time_power_on ..", "..  wgt.gpsSATS, "\r\n")		
+
+			io.write(file, wgt.coordinates_current ..",".. time_power_on ..", "..  wgt.gpsSATS..", ".. wgt.gpsALT ..", ".. wgt.gpsSpeed, "\r\n")					
 			io.close(file)			
 
 			if wgt.ctr >= 99 then
 				wgt.ctr = 0				
-				--clear log
+				--clear log and add headline
 				file = io.open(log_filename, "w") 
+					io.write(file, "Number,LAT,LON,radio_time,satellites,GPSalt,GPSspeed", "\r\n")		
 				io.close(file)	
 				
 				--reopen log for appending data
@@ -127,11 +129,36 @@ local drone_img
 		return rnd(dist,2)
 	end
 	
+	--[	####################################################################
+	--[	ETX and OTX compatible draw text with color
+	--[	####################################################################
+	local function lcl_drawText(x, y, txt, flags, color)
+		lcd.setColor(CUSTOM_COLOR, color)
+		lcd.drawText(x, y, txt, flags + CUSTOM_COLOR)
+	end
+	
+	--[	####################################################################
+	--[	ETX and OTX compatible draw filled rect with color
+	--[	####################################################################
+	local function lcl_drawFilledRectangle(x1, y1, x2, y2, color)
+		lcd.setColor(CUSTOM_COLOR, color)
+		lcd.drawFilledRectangle(x1, y1, x2, y2, CUSTOM_COLOR)			
+	end	
+
+	--[	####################################################################
+	--[	ETX and OTX compatible draw line with color
+	--[	####################################################################
+	local function lcl_drawLine(x1, y1, x2, y2, pattern, flags, color)
+		lcd.setColor(CUSTOM_COLOR, color)
+		lcd.drawLine(x1, y1, x2, y2, pattern, flags + CUSTOM_COLOR)
+	end
+	
+
 
 --############################################################################
 local options = {
-  { "LineColor", COLOR, WHITE },
-  { "TextColor", COLOR, BLACK }
+  { "TextColor", COLOR, BLACK },
+  { "LineColor", COLOR, WHITE }
 }
 
 local function create(zone, options)
@@ -141,6 +168,8 @@ local function create(zone, options)
 	counter=0,		
 	gpsId=0,
 	gpssatId=0,	
+	gpsspeedId=0,	
+	gpsaltId=0,	
 	gpsLAT = 0,
 	gpsLON = 0,
 	gpsLAT_H = 0,
@@ -148,6 +177,8 @@ local function create(zone, options)
 	gpsPrevLAT = 0,
 	gpsPrevLON = 0,
 	gpsSATS = 0,
+	gpsSpeed = 0,
+	gpsALT = 0,
 	gpsFIX = 0,
 	gpsDtH = 0,
 	gpsTotalDist = 0,
@@ -187,10 +218,9 @@ local function update(wgt, options)
 	end
 	
 	wgt.options = options   
-  	
-	lcd.setColor(TEXT_COLOR, wgt.options.TextColor)
-	lcd.setColor(LINE_COLOR, wgt.options.LineColor)
-		
+
+	newtext_color = wgt.options.TextColor
+	newline_color = wgt.options.LineColor	
 end
 
 local function background(wgt)
@@ -208,18 +238,28 @@ local function get_data(wgt)
 	--number of satellites crossfire
 	wgt.gpssatId = getTelemetryId("Sats")
 	
+	--get IDs GPS Speed and GPS altitude
+	wgt.gpsspeedId = getTelemetryId("GSpd") --GPS ground speed m/s
+	wgt.gpsaltId = getTelemetryId("GAlt") --GPS altitude m
+	
+	--if "ALT" can't be read, try to read "GAlt"
+	if (gpsaltId == -1) then gpsaltId = getTelemetryId("GAlt") end	
+	
 	--if Stats can't be read, try to read Tmp2 (number of satellites SBUS/FRSKY)
 	if (wgt.gpssatId == -1) then wgt.gpssatId = getTelemetryId("Tmp2") end	
 		  
 	  
 	--####################################################################
-	--get Latitude, Longitude
+	--get Latitude, Longitude, Speed and Altitude
 	--####################################################################		
 	wgt.gpsLatLon = getValue(wgt.gpsId)
 		
 	if (type(wgt.gpsLatLon) == "table") then 			
 		wgt.gpsLAT = rnd(wgt.gpsLatLon["lat"],6)
-		wgt.gpsLON = rnd(wgt.gpsLatLon["lon"],6)		
+		wgt.gpsLON = rnd(wgt.gpsLatLon["lon"],6)	
+		wgt.gpsSpeed = rnd(getValue(wgt.gpsspeedId) * 1.852,1)
+		wgt.gpsALT = rnd(getValue(wgt.gpsaltId),0)
+		
 			
 		
 		--set home postion only if more than 5 sats available
@@ -293,9 +333,9 @@ local function get_data(wgt)
   
 end
 
-function refresh(wgt)
+--function refresh(wgt)
+function refresh(wgt, event, touchState)
 	
-
 	if (wgt == nil) then		
 		print("GPS_Debug", "Widget not initialized - 2")	
 		return
@@ -314,49 +354,43 @@ function refresh(wgt)
 	
 	-- display T16: 480*272px / 1/2 Zone size: 220x152 
 	--headline
-	if wgt.update == true then	
-		lcd.setColor(CUSTOM_COLOR, lcd.RGB(0x9D, 0xD6, 0x00))
-		lcd.drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0, 225, 25, CUSTOM_COLOR)
-		lcd.drawText(wgt.zone.x + 5,wgt.zone.y + 5,wgt.gpsFIX , LEFT + SMLSIZE + TEXT_COLOR)
-	elseif wgt.update == false then
-		lcd.setColor(CUSTOM_COLOR, lcd.RGB(0xe6, 0x32, 24))
-		lcd.drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0,  225, 25, CUSTOM_COLOR )
-		lcd.drawText(wgt.zone.x + 5,wgt.zone.y + 5, "no GPS data available", LEFT + SMLSIZE + TEXT_COLOR)		
+	if wgt.update == true then					
+		lcl_drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0, 225, 25, lcd.RGB(0x9D, 0xD6, 0x00))						
+		lcl_drawText(wgt.zone.x + 5,wgt.zone.y + 5,wgt.gpsFIX , LEFT + SMLSIZE ,  newtext_color)
+	elseif wgt.update == false then		
+		lcl_drawFilledRectangle(wgt.zone.x + 0, wgt.zone.y + 0,  225, 25, lcd.RGB(0xE6, 0x32, 24))		
+		lcl_drawText(wgt.zone.x + 5,wgt.zone.y + 5, "no GPS data available", LEFT + SMLSIZE ,  newtext_color)		
 	end
-	
-	--line horz.
-	--lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 25, wgt.zone.x + 224, wgt.zone.y + 25, SOLID, LINE_COLOR)
 	
 	--satellites
 	lcd.drawBitmap(sat_img, wgt.zone.x, wgt.zone.y + 30, 35)
-	lcd.drawText(wgt.zone.x + 42,wgt.zone.y + 40, wgt.gpsSATS, LEFT + MIDSIZE + TEXT_COLOR)		
-	--lcd.drawLine(wgt.zone.x + 74, wgt.zone.y + 25, wgt.zone.x + 74, wgt.zone.y + 85, SOLID, LINE_COLOR)	
-	
+	lcl_drawText(wgt.zone.x + 42,wgt.zone.y + 40, wgt.gpsSATS, LEFT + MIDSIZE ,  newtext_color)		
+		
 	--distance to home
 	lcd.drawBitmap(dis_img, wgt.zone.x + 80, wgt.zone.y + 30, 35)
-	lcd.drawText(wgt.zone.x + 145 , wgt.zone.y + 30, wgt.gpsDtH, RIGHT + SMLSIZE + TEXT_COLOR)	
-	lcd.drawText(wgt.zone.x + 145 , wgt.zone.y + 50, "km", RIGHT + SMLSIZE + TEXT_COLOR)	
-	--lcd.drawLine(wgt.zone.x + 150, wgt.zone.y + 25, wgt.zone.x + 150, wgt.zone.y + 85, SOLID, LINE_COLOR)	
-	
+	lcl_drawText(wgt.zone.x + 145 , wgt.zone.y + 30, wgt.gpsDtH, RIGHT + SMLSIZE ,  newtext_color)	
+	lcl_drawText(wgt.zone.x + 145 , wgt.zone.y + 50, "km", RIGHT + SMLSIZE ,  newtext_color)	
+		
 	--total total travel 
 	lcd.drawBitmap(disT_img, wgt.zone.x + 155, wgt.zone.y + 30, 35)
-	lcd.drawText(wgt.zone.x + 222, wgt.zone.y +30, wgt.gpsTotalDist, RIGHT + SMLSIZE + TEXT_COLOR)	
-	lcd.drawText(wgt.zone.x + 222, wgt.zone.y +50, "km", RIGHT + SMLSIZE + TEXT_COLOR)	
+	lcl_drawText(wgt.zone.x + 222, wgt.zone.y +30, wgt.gpsTotalDist, RIGHT + SMLSIZE ,  newtext_color)	
+	lcl_drawText(wgt.zone.x + 222, wgt.zone.y +50, "km", RIGHT + SMLSIZE ,  newtext_color)	
 	
 	--line horz.
-	lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 85, wgt.zone.x + 224, wgt.zone.y + 85, SOLID, LINE_COLOR)
+	lcl_drawLine(wgt.zone.x + 0, wgt.zone.y + 85, wgt.zone.x + 224, wgt.zone.y + 85, SOLID, 0, newline_color)
+
 	
 	--home location
 	lcd.drawBitmap(home_img, wgt.zone.x, wgt.zone.y + 95, 30)
-	lcd.drawText(wgt.zone.x + 50, wgt.zone.y + 110, wgt.gpsLAT_H .. ", " .. wgt.gpsLON_H, LEFT + SMLSIZE + TEXT_COLOR)	
+	lcl_drawText(wgt.zone.x + 50, wgt.zone.y + 110, wgt.gpsLAT_H .. ", " .. wgt.gpsLON_H, LEFT + SMLSIZE ,  newtext_color)	
 		
 	--line horz.
-	lcd.drawLine(wgt.zone.x + 0, wgt.zone.y + 145, wgt.zone.x + 224, wgt.zone.y + 145, SOLID, LINE_COLOR)
+	lcl_drawLine(wgt.zone.x + 0, wgt.zone.y + 145, wgt.zone.x + 224, wgt.zone.y + 145, SOLID, 0, newline_color)
 	
 	--current and last location
 	lcd.drawBitmap(drone_img, wgt.zone.x, wgt.zone.y + 150, 40)
-	lcd.drawText(wgt.zone.x + 50,wgt.zone.y + 158, wgt.coordinates_prev,LEFT + SMLSIZE + TEXT_COLOR)
-	lcd.drawText(wgt.zone.x + 50,wgt.zone.y + 180, wgt.coordinates_current,LEFT + SMLSIZE + TEXT_COLOR)
+	lcl_drawText(wgt.zone.x + 50,wgt.zone.y + 158, wgt.coordinates_prev,LEFT + SMLSIZE ,  newtext_color)
+	lcl_drawText(wgt.zone.x + 50,wgt.zone.y + 180, wgt.coordinates_current,LEFT + SMLSIZE ,  newtext_color)
 	
 	 
 end

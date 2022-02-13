@@ -4,7 +4,7 @@ Copyright (C) by mosch
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories 
 
-"TELEMETRY screen - GPS last known postions v2.1"  
+"TELEMETRY screen - GPS last known postions v2.0"  
 
  
 Description:
@@ -38,6 +38,11 @@ local gpsLON_H = 0
 local gpsPrevLAT = 0
 local gpsPrevLON = 0
 local gpsSATS = 0
+local gpsALT = 0
+local gpsSpeed = 0
+local gpssatId = 0
+local gpsspeedId = 0
+local gpsaltId = 0
 local gpsFIX = 0
 local gpsDtH = 0
 local gpsTotalDist = 0
@@ -85,13 +90,14 @@ local function write_log()
 						
 		--write logfile		
 		file = io.open(log_filename, "a")    								
-		io.write(file, coordinates_current ..",".. time_power_on ..", "..  gpsSATS, "\r\n")				
-	io.close(file)			
+			io.write(file, coordinates_current ..",".. time_power_on ..", "..  gpsSATS..", ".. gpsALT ..", ".. gpsSpeed, "\r\n")				
+		io.close(file)			
 
 		if ctr >= 99 then
 			ctr = 0				
 			--clear log
 			file = io.open(log_filename, "w") 
+				io.write(file, "Number,LAT,LON,radio_time,satellites,GPSalt,GPSspeed", "\r\n")	
 			io.close(file)	
 			
 			--reopen log for appending data
@@ -129,6 +135,14 @@ local function init()
 	gpsId = getTelemetryId("GPS")
 	--number of satellites crossfire
 	gpssatId = getTelemetryId("Sats")
+	
+	--get IDs GPS Speed and GPS altitude
+	gpsspeedId = getTelemetryId("GSpd") --GPS ground speed m/s
+	gpsaltId = getTelemetryId("GAlt") --GPS altitude m
+	
+	--if "ALT" can't be read, try to read "GAlt"
+	if (gpsaltId == -1) then gpsaltId = getTelemetryId("GAlt") end	
+	
 	--if Stats can't be read, try to read Tmp2 (number of satellites SBUS/FRSKY)
 	if (gpssatId == -1) then gpssatId = getTelemetryId("Tmp2") end	
 end
@@ -142,7 +156,9 @@ local function background()
 		
 	if (type(gpsLatLon) == "table") then 			
 		gpsLAT = rnd(gpsLatLon["lat"],6)
-		gpsLON = rnd(gpsLatLon["lon"],6)			
+		gpsLON = rnd(gpsLatLon["lon"],6)
+		gpsSpeed = rnd(getValue(gpsspeedId) * 1.852,1)
+		gpsALT = rnd(getValue(gpsaltId),0)			
 		
 		--set home postion only if more than 5 sats available
 		if (tonumber(gpsSATS) > 5) then

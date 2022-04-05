@@ -219,8 +219,6 @@ local function update(wgt, options)
 	
 	wgt.options = options   
 
-	newtext_color = wgt.options.TextColor
-	newline_color = wgt.options.LineColor	
 end
 
 local function background(wgt)
@@ -340,6 +338,10 @@ function refresh(wgt, event, touchState)
 		print("GPS_Debug", "Widget not initialized - 2")	
 		return
 	end		
+
+	-- set the colours
+	newtext_color = wgt.options.TextColor
+	newline_color = wgt.options.LineColor	
 	
 	get_data(wgt) 	
 

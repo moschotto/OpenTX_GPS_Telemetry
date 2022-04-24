@@ -6,6 +6,9 @@ GITHUB: https://github.com/moschotto?tab=repositories
 
 ## make sure that your radio is a least on OpenTX 2.3.x / EdgeTX 2.6.0
 
+### :exclamation: Even if your radio is not listed down below, check the resolution of your radio screen and use the scripts below (don't care about the naming)
+=> e.g. the x7 / x9 lite scripts are working on the Jumper T-Pro as well (same display resolution)
+
 NOTE: i'm not using EdgeTX - tested in simulator only
 
 

@@ -56,7 +56,7 @@ IMPORTANT:
 1. copy GPSxxx.lua to /SCRIPTS/TELEMETRY
 2. copy GPS Stats XXX.lua to /SCRIPTS/TOOLS
 3. copy the ICON folder to /SCRIPTS/TELEMETRY/BMP
-4. :exclamation: make sure that the /LOGS/ folder exists
+4. :exclamation: make sure that the /LOGS/ folder exists. If not, create it
 5. Setup a "screen (DIsplay 13/13)" and select GPSxxx.lua
 6. Make sure GPS, speed, alt sensors have been discovered within the telemetry menu/screen of opentx/edgetx
 
@@ -64,7 +64,7 @@ IMPORTANT:
 
 1. copy the GPS folder (inculding subfolders) to /WIDGETS/GPS
 2. copy GPS stats T16.lua to /SCRIPTS/TOOLS
-3. :exclamation: make sure that the /LOGS/ folder exists
+3. :exclamation: make sure that the /LOGS/ folder exists. If not, create it
 4. Setup "1/2" widget screen and select "GPS"
 5. Make sure GPS, speed, alt sensors have been discovered within the telemetry menu/screen of opentx/edgetx
 

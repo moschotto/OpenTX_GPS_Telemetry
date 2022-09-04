@@ -175,15 +175,22 @@ local function Viewer_Run(event)
 			
 			Viewer_Draw_LCD(item)  
 			--handle scroll counter
-			if event == EVT_ROT_RIGHT or event == EVT_PLUS_FIRST then 			
+			if event == EVT_VIRTUAL_INC  then      
 				if item  < linectr-1 then
 					item = item + 1
-				end						  
-			end				
-			if event == EVT_ROT_LEFT or event == EVT_MINUS_FIRST then      
+				end								
+				if item == (linectr-1) then
+					item = 0
+				end
+			end		
+	
+			if event == EVT_VIRTUAL_DEC  then      
 				if item > 0 then
 					item = item - 1								
-				end		
+				end					
+				if item == 0 then
+					item = linectr-1
+				end
 			end
 		
 		else

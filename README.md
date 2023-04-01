@@ -60,7 +60,7 @@ For color screen radios via "long press enter" -> statistics -> "long press ente
 ![](https://github.com/moschotto/OpenTX_GPS_Telemetry/blob/main/media/T16_reset.gif)
 
 
-## Installation for Taranis models:
+## Installation for non color screen radios:
 1. copy GPSxxx.lua to /SCRIPTS/TELEMETRY
 2. copy GPS Stats XXX.lua to /SCRIPTS/TOOLS
 3. copy the BMP folder to /SCRIPTS/TELEMETRY/BMP

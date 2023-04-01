@@ -1,4 +1,6 @@
-# OpenTX/EdgeTX GPS LUA TELEMETRY scripts v2.4
+# OpenTX/EdgeTX GPS Widget / telemetry screen
+
+## GPS LUA TELEMETRY scripts v2.5
 
 Copyright (C) by mosch   
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
@@ -44,12 +46,19 @@ GPS coordinates and type it into to your mobile phone...
 
 - distance from your home position - how far you need to walk ;)
 
-IMPORTANT:
--Reset Telemetry once you have a good and valid GPS fix (this resets home positon and distance):
+## Usage:
 
-[TARANIS] Reset telemetry data and total distance via "long press enter"
+Once you have a good and valid GPS fix (>5 satellites) you need to set the home position manualy.
 
-[T16 etc] Reset via "long press enter" -> statistics -> "long press enter" to reset statistics and exit menu in under 10 seconds	
+For non color screen radios, just "long press enter" and exit the menu without selecting anything.
+Don't select reset telemetry....
+
+![](https://github.com/moschotto/OpenTX_GPS_Telemetry/blob/main/media/x9l_reset.gif)
+
+
+For color screen radios via "long press enter" -> statistics -> "long press enter" to reset statistics and exit menu in under 10 seconds	
+
+![](https://github.com/moschotto/OpenTX_GPS_Telemetry/blob/main/media/T16_reset.gif)
 
 
 ## Installation for Taranis models:

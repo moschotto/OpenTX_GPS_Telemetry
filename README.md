@@ -51,7 +51,6 @@ GPS coordinates and type it into to your mobile phone...
 Once you have a good and valid GPS fix (>5 satellites) you need to set the home position manualy.
 
 For non color screen radios, just "long press enter" and exit the menu without selecting anything.
-Don't select reset telemetry....
 
 ![](https://github.com/moschotto/OpenTX_GPS_Telemetry/blob/main/media/x9l_reset.gif)
 

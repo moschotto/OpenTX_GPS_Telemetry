@@ -4,7 +4,7 @@ Copyright (C) by mosch
 License GPLv2: http://www.gnu.org/licenses/gpl-2.0.html       
 GITHUB: https://github.com/moschotto?tab=repositories 
 
-"TELEMETRY screen - GPS last known postions v2.0"  
+"TELEMETRY screen - GPS last known postions v2.5"  
 
  
 Description:
@@ -49,6 +49,7 @@ local gpsTotalDist = 0
 local log_write_wait_time = 10
 local old_time_write = 0
 local update = true
+local reset = false
 local string_gmatch = string.gmatch
 local now = 0
 local ctr = 0
@@ -161,10 +162,13 @@ local function background()
 		gpsALT = rnd(getValue(gpsaltId),0)			
 		
 		--set home postion only if more than 5 sats available
-		if (tonumber(gpsSATS) > 5) then
-			gpsLAT_H = rnd(gpsLatLon["pilot-lat"],6)
-			gpsLON_H = rnd(gpsLatLon["pilot-lon"],6)	
-		end
+		if (tonumber(gpsSATS) > 5) and (reset == true) then
+			--gpsLAT_H = rnd(gpsLatLon["pilot-lat"],6)
+			--gpsLON_H = rnd(gpsLatLon["pilot-lon"],6)	
+			gpsLAT_H = rnd(gpsLatLon["lat"],6)
+			gpsLON_H = rnd(gpsLatLon["lon"],6)	
+			reset = false
+		end	
 
 		update = true	
 	else
@@ -202,22 +206,24 @@ local function background()
 	--####################################################################			
 	if (tonumber(gpsSATS) >= 5) then
 	
-		if (gpsLAT ~= gpsPrevLAT) and (gpsLON ~=  gpsPrevLON) and (gpsLAT_H ~= 0) and  (gpsLON_H ~= 0) then		
-		--if (string.len(gpsLAT) > 4) and  (string.len(gpsLON) > 4) and (tonumber(gpsSATS) > 5) then  
+		if (gpsLAT ~= gpsPrevLAT) and (gpsLON ~=  gpsPrevLON) then		
 					
-			--distance to home
-			gpsDtH = rnd(calc_Distance(gpsLAT, gpsLON, gpsLAT_H, gpsLON_H),2)			
-			gpsDtH = string.format("%.2f",gpsDtH)		
+			if (gpsLAT_H ~= 0) and  (gpsLON_H ~= 0) then 
 			
-			--total distance traveled					
-			if (gpsPrevLAT ~= 0) and  (gpsPrevLON ~= 0) then	
-				--print("GPS_Debug_Prev", gpsPrevLAT,gpsPrevLON)	
-				--print("GPS_Debug_curr", gpsLAT,gpsLON)	
+				--distance to home
+				gpsDtH = rnd(calc_Distance(gpsLAT, gpsLON, gpsLAT_H, gpsLON_H),2)			
+				gpsDtH = string.format("%.2f",gpsDtH)		
 				
-				gpsTotalDist =  rnd(tonumber(gpsTotalDist) + calc_Distance(gpsLAT,gpsLON,gpsPrevLAT,gpsPrevLON),2)			
-				gpsTotalDist = string.format("%.2f",gpsTotalDist)					
+				--total distance traveled					
+				if (gpsPrevLAT ~= 0) and  (gpsPrevLON ~= 0) then	
+					--print("GPS_Debug_Prev", gpsPrevLAT,gpsPrevLON)	
+					--print("GPS_Debug_curr", gpsLAT,gpsLON)	
+					
+					gpsTotalDist =  rnd(tonumber(gpsTotalDist) + calc_Distance(gpsLAT,gpsLON,gpsPrevLAT,gpsPrevLON),2)			
+					gpsTotalDist = string.format("%.2f",gpsTotalDist)					
+				end
 			end
-
+			
 			--data for displaying the 
 			coordinates_prev = string.format("%02d",ctr) ..", ".. gpsPrevLAT..", " .. gpsPrevLON
 			coordinates_current = string.format("%02d",ctr+1) ..", ".. gpsLAT..", " .. gpsLON		
@@ -243,7 +249,7 @@ local function run(event)
 		gpsTotalDist = 0
 		gpsLAT_H = 0
 		gpsLON_H = 0
-		
+		reset = true
 	end 	
 	
 	-- create screen
@@ -274,7 +280,13 @@ local function run(event)
 		lcd.drawText(90,12, gpsDtH .. " km", MIDSIZE)	
 		lcd.drawText(160,12, gpsTotalDist .. " km", MIDSIZE)	
 		
-		lcd.drawText(20,33, gpsLAT_H .. ", " .. gpsLON_H, SMLSIZE)
+		if (gpsLAT_H ~= 0) and  (gpsLON_H ~= 0) then
+			lcd.drawText(20,33, gpsLAT_H .. ", " .. gpsLON_H, SMLSIZE)
+		else
+			lcd.drawText(20,29, "home position not set. please manual ", SMLSIZE + INVERS + BLINK)
+			lcd.drawText(20,37, "reset telemetry after 3D GPS FIX!", SMLSIZE + INVERS + BLINK)
+		end
+		
 				
 		lcd.drawText(20,47, coordinates_prev,SMLSIZE)
 		lcd.drawText(20,56, coordinates_current,SMLSIZE)

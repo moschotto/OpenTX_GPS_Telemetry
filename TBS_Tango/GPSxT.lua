@@ -199,7 +199,7 @@ local function background()
 				gpsDtH = string.format("%.2f",gpsDtH)		
 				
 				--total distance traveled					
-				if (gpsPrevLAT ~= 0) and  (gpsPrevLON ~= 0) then	
+				if (gpsPrevLAT ~= 0) and  (gpsPrevLON ~= 0) and (gpsLAT ~= 0) and  (gpsLON ~= 0)then		
 					--print("GPS_Debug_Prev", gpsPrevLAT,gpsPrevLON)	
 					--print("GPS_Debug_curr", gpsLAT,gpsLON)	
 					

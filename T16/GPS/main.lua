@@ -279,12 +279,13 @@ local function get_data(wgt)
 	wgt.gpsSATS = getValue(wgt.gpssatId)
 	
 	if string.len(wgt.gpsSATS) > 2 then		
-		-- smartport Example 1014: -> 1= GPS fix 0=lowest accuracy 13=13 active satellites
-		--[	Sats / Tmp2 : GPS lock status, accuracy, home reset trigger, and number of satellites. Number is sent as ABCD detailed below. Typical minimum 
+		-- smartport Example 1014: -> 1= GPS fix | 0=lowest accuracy | 14=14 active satellites
+		--[	Sats / Tmp2 : GPS lock status, accuracy, home reset trigger, and number of satellites. 
+		--[ 	Number is sent as ABCD detailed below. ABCD = 1014
 		--[	A : 1 = GPS fix, 2 = GPS home fix, 4 = home reset (numbers are additive)
 		--[	B : GPS accuracy based on HDOP (0 = lowest to 9 = highest accuracy)
-		--[	C : number of satellites locked (first digit) C & D are the number of locked satellites)
-		--[ 	D : number of satellites locked (second digit 
+		--[	C : number of satellites locked (first digit)
+		--[ 	D : number of satellites locked (second digit)
 		--[ 	for example: "1014"  C = 1 & D = 4 => 14 satellites
 		wgt.gpsSATS = string.sub (wgt.gpsSATS, 3,6)		
 	else

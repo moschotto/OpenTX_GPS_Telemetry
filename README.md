@@ -26,7 +26,7 @@ NOTE: i'm not using EdgeTX - tested in simulator only
 - /TBS_Tango/GPSxT.lua
 - /TBS_Tango/GPSviewerT.lua
 
-### Radios with 128x64 pixel displays (e.g. x7 / x9 lite / Jumper T-lite)
+### Radios with 128x64 pixel displays (e.g. x7 / x9 lite / Jumper T-lite / Pocket)
 
 - /x7_x9lite/GPSx9L.lua
 - /x7_x9lite/GPS Stats X9L.lua

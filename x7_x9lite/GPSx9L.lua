@@ -80,6 +80,37 @@ local function SecondsToClock(seconds)
   end
 end
 
+-- Draw a pointer (for compass)
+-- Parámetros:
+--  cx, cy : center coordinates
+--  length : large
+--  width  : base
+--  angle  : angle (0° pointing up)
+local function drawPointedTriangle(cx, cy, length, width, angle)
+    local rad = math.rad(angle)
+
+    local verts = {
+        {x = 0, y = -length / 2},
+        {x = -width / 2, y = length / 2},
+        {x = width / 2, y = length / 2}
+    }
+
+    local rotated = {
+		{x = 0, y = 0},
+        {x = 0, y = 0},
+        {x = 0, y = 0}
+	}
+	rotated[1].x = cx + verts[1].x * math.cos(rad) - verts[1].y * math.sin(rad) 
+	rotated[1].y = cy + verts[1].x * math.sin(rad) + verts[1].y * math.cos(rad)
+	rotated[2].x = cx + verts[2].x * math.cos(rad) - verts[2].y * math.sin(rad) 
+	rotated[2].y = cy + verts[2].x * math.sin(rad) + verts[2].y * math.cos(rad)
+	rotated[3].x = cx + verts[3].x * math.cos(rad) - verts[3].y * math.sin(rad) 
+	rotated[3].y = cy + verts[3].x * math.sin(rad) + verts[3].y * math.cos(rad)
+
+	lcd.drawLine(rotated[1].x,rotated[1].y,rotated[2].x,rotated[2].y, SOLID, FORCE)
+	lcd.drawLine(rotated[2].x,rotated[2].y,rotated[3].x,rotated[3].y, SOLID, FORCE)
+	lcd.drawLine(rotated[3].x,rotated[3].y,rotated[1].x,rotated[1].y, SOLID, FORCE)
+end
 
 local function write_log()
 
@@ -270,8 +301,12 @@ local function run(event)
 				
 	lcd.drawPixmap(2,28, "/SCRIPTS/TELEMETRY/BMP/home16.bmp")		
 	lcd.drawLine(0,44, 128, 44, SOLID, FORCE)
-			
-	lcd.drawPixmap(2,47, "/SCRIPTS/TELEMETRY/BMP/drone16.bmp")
+	
+	-- Fill compass rectangle
+	lcd.drawFilledRectangle(2,46,16,16,ERASE)
+	-- Draw compass 
+	drawPointedTriangle(10, 54, 12, 6, -gpsHdg) -- Negative heading because triangle angle is inverted
+	--lcd.drawPixmap(2,47, "/SCRIPTS/TELEMETRY/BMP/drone16.bmp")
 	lcd.drawLine(0,63,127,63, SOLID, FORCE)		
 	
 	--update screen data

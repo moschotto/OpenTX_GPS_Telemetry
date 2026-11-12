@@ -13,9 +13,10 @@ GPS coordinates and type them into your phone.
 This Boxer version adds, on a 128x64 mono screen and WITHOUT bitmaps:
 - Battery voltage per cell (avg)   - Vc
 - Drone altitude (m)               - Alt
-- Drone ground speed (km/h)        - Spd
+- Drone ground speed (whole km/h)  - Spd
 - Link RSSI in dBm (CRSF 1RSS)     - RSSI
 - Link quality % (CRSF RQly)       - LQ
+- Battery capacity used (mAh)      - mAh
 
 Still shows: GPS fix state, sats, distance to home, total distance,
 home position and the LAST logged GPS position.
@@ -62,12 +63,14 @@ local gpsSpeed = 0
 local gpsVcell = 0
 local gpsRSSI = 0
 local gpsLQ = 0
+local gpsmAh = 0
 local gpssatId = 0
 local gpsspeedId = 0
 local gpsaltId = 0
 local gpsvbatId = 0
 local gpsrssiId = 0
 local gpslqId = 0
+local gpsmahId = 0
 local gpsfmId = 0
 local gpsFIX = 0
 local gpsArmed = false
@@ -91,7 +94,9 @@ local old_time_write2 = 0
 local wait = 100
 
 local function rnd(v,d)
-	if d then
+	-- NB: 0 is truthy in Lua, so d==0 must not take the divide branch:
+	-- x/(10^0) yields a float and renders as "54.0" instead of "54".
+	if d and d > 0 then
 		return math.floor((v*10^d)+0.5)/(10^d)
 	else
 		return math.floor(v+0.5)
@@ -192,6 +197,11 @@ local function init()
 	gpslqId = getTelemetryId("RQly")
 	if (gpslqId == -1) then gpslqId = getTelemetryId("RQLY") end
 
+	--battery capacity used in mAh (CRSF/ELRS battery frame). Fallbacks for FrSky.
+	gpsmahId = getTelemetryId("Capa")
+	if (gpsmahId == -1) then gpsmahId = getTelemetryId("mAh") end
+	if (gpsmahId == -1) then gpsmahId = getTelemetryId("Fuel") end
+
 	--flight mode string (used to detect arming on Betaflight/CRSF)
 	gpsfmId = getTelemetryId("FM")
 	if (gpsfmId == -1) then gpsfmId = getTelemetryId("FltM") end
@@ -234,6 +244,15 @@ local function background()
 	gpsRSSI = getValue(gpsrssiId)
 	gpsLQ = getValue(gpslqId)
 
+	--battery capacity used (mAh). Missing sensor / bad value -> keep last reading.
+	if (gpsmahId ~= -1) then
+		local rawMah = getValue(gpsmahId)
+		if (type(rawMah) == "table") then rawMah = rawMah[1] end
+		if (type(rawMah) == "number") and (rawMah >= 0) then
+			gpsmAh = rnd(rawMah,0)
+		end
+	end
+
 	local rawV = getValue(gpsvbatId)
 	if (type(rawV) == "table") then rawV = rawV[1] end
 	if (type(rawV) == "number") and rawV > 0 then
@@ -258,7 +277,7 @@ local function background()
 	if (type(gpsLatLon) == "table") then
 		gpsLAT = rnd(gpsLatLon["lat"],6)
 		gpsLON = rnd(gpsLatLon["lon"],6)
-		gpsSpeed = rnd(getValue(gpsspeedId) * SPEED_MULT,1)
+		gpsSpeed = rnd(getValue(gpsspeedId) * SPEED_MULT,0)
 		gpsALT = rnd(getValue(gpsaltId),0)
 
 		update = true
@@ -414,7 +433,13 @@ local function run(event)
 	lcd.drawText(2,21,  "Alt "..gpsALT.."m", SMLSIZE)
 	lcd.drawText(62,21, "LQ "..gpsLQ, SMLSIZE)
 	lcd.drawText(2,30,  "Spd "..gpsSpeed.."kmh", SMLSIZE)
-	lcd.drawText(2,39,  "DtH "..gpsDtH.."  Tot "..gpsTotalDist.." km", SMLSIZE)
+	if (gpsmahId ~= -1) then
+		lcd.drawText(62,30, "mAh "..gpsmAh, SMLSIZE)
+	else
+		lcd.drawText(62,30, "mAh --", SMLSIZE)
+	end
+	lcd.drawText(2,39,  "DtH "..gpsDtH.."km", SMLSIZE)
+	lcd.drawText(62,39, "Tot "..gpsTotalDist.."km", SMLSIZE)
 
 	lcd.drawLine(0,46, 127, 46, SOLID, FORCE)
 
